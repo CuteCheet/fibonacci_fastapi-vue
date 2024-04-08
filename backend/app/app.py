@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from math import sqrt
 
 app = FastAPI()
 
@@ -18,17 +19,14 @@ async def fibonacci(n: int):
     This function calculates the nth number in the Fibonacci sequence.
     The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding ones, usually starting with 1 and 1.
     """
+    result = await calculate_fibonacci(n)
+    return result
 
-    # Initialize the first two numbers in the Fibonacci sequence
-    first_number, second_number = 0, 1
+async def calculate_fibonacci(n: int):
 
-    # Loop n times to calculate the nth Fibonacci number
-    for _ in range(n):
-        # Calculate the next number in the sequence by adding the current two numbers
-        first_number, second_number = second_number, first_number + second_number
-
-    # Convert the result to a string for JSON serialization
-    result = str(first_number)
+    #Calculate nth term by one single formula
+    num = (((1+sqrt(5))**n)-((1-sqrt(5)))**n)/(2**n*sqrt(5))
+    result = str(int(num))
 
     # Return the result as a JSON object
-    return {"fibonacci": result}
+    return result

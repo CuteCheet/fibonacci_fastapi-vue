@@ -1,5 +1,5 @@
 <template>
-   <div class="container">
+  <div class="container">
      <div class="mainFibo_section">
        <!-- Header section -->
        <div class="header">
@@ -15,54 +15,58 @@
          <textarea v-model="result" placeholder="The Nth sequence number is..."></textarea>
        </div>
      </div>
-   </div>
+  </div>
  </template>
  
- 
  <script>
- import axios from 'axios';
- 
  export default {
-   data() {
+  data() {
      return {
        number: null, // Holds the input number
        result: null, // Holds the result of the Fibonacci sequence
      };
-   },
-   methods: {
+  },
+  methods: {
+     // Asynchronous method to fetch the Fibonacci sequence number
      async getFibonacci() {
-      // Constructs the URL for the API request
-       const url = 'http://localhost:8000/fibonacci/' + this.number; 
-       await axios.get(url)
-         .then(response => {
-           // Stores the result in the 'result' variable
-           this.result = response.data.fibonacci; 
-         })
-         .catch(error => {
-           console.error(error);
-         });
+       // Check if the input number is not empty
+       if (this.number) {
+         // Construct the URL for the API request
+         const url = 'http://localhost:8000/fibonacci/' + this.number;
+         // Fetch the data from the backend
+         const response = await fetch(url);
+         // Parse the response as JSON
+         const data = await response.json();
+         // Update the result with the fetched Fibonacci number
+         this.result = data.fibonacci;
+       }
      },
-   },
+  },
  };
  </script>
  
  <style scoped>
+ /* Style the input, button, and textarea elements */
  input, button, textarea {
-   font-size: 20px;
+  font-size: 20px;
  }
  
+ /* Style the main section */
  .mainFibo_section {
-   margin-left: 100px;
-   margin-right: 100px;
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 100px;
+  margin-right: 100px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
  }
  
+ /* Style the result section */
  .result {
-   padding: 20px;
+  padding: 20px;
  }
  
+ /* Style the textarea within the result section */
  .result textarea {
-   width: 80%;
-   height: 200px;
+  width: 80%;
+  height: 200px;
  }
  </style>
+ 

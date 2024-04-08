@@ -5,7 +5,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:8080"], # Adjust this to match your Vue.js app's origin
+    allow_origins=["http://localhost:8080"], # Adjust this to match your Vue.js app's origin
     allow_credentials=True,
     allow_methods=["*"], # Allows all methods
     allow_headers=["*"], # Allows all headers

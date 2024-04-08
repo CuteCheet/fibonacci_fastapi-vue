@@ -29,8 +29,13 @@
   methods: {
      // Asynchronous method to fetch the Fibonacci sequence number
      async getFibonacci() {
-       // Check if the input number is not empty
-       if (this.number) {
+       // Check if the input number is negative int
+        if(this.number <= 0)
+        {
+          this.result = "Input number greater than 0";
+        }
+       // Check if the input number is acceptable
+       else {
          // Construct the URL for the API request
          const url = 'http://localhost:8000/fibonacci/' + this.number;
          // Fetch the data from the backend

@@ -1,23 +1,18 @@
+image: docker:latest
+
+services:
+ - docker:dind
+
 stages:
  - build
 
 variables:
- IMAGE_TAG: $CI_PIPELINE_ID
+ DOCKER_DRIVER: overlay2
 
-build_api:
+build:
  stage: build
- image: docker:latest
- services:
-    - docker:dind
  script:
-    - docker build -t my-api:$IMAGE_TAG ./backend
-    - docker push my-api:$IMAGE_TAG
-
-build_frontend:
- stage: build
- image: docker:latest
- services:
-    - docker:dind
- script:
-    - docker build -t my-frontend:$IMAGE_TAG ./frontend
-    - docker push my-frontend:$IMAGE_TAG
+    - docker build -t my-app:$CI_PIPELINE_ID ./backend
+    - docker build -t my-frontend:$CI_PIPELINE_ID ./frontend
+ only:
+    - main

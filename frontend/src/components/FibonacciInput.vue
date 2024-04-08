@@ -35,7 +35,6 @@
        const url = 'http://localhost:8000/fibonacci/' + this.number; 
        await axios.get(url)
          .then(response => {
-           console.log(response.data);
            // Stores the result in the 'result' variable
            this.result = response.data.fibonacci; 
          })
